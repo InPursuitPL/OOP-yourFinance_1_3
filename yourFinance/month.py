@@ -14,7 +14,7 @@ class Month:
             self.set_name()
         else:
             assert name in Month.MONTHS_NAMES, 'Wrong month name delivered to <name> variable.'
-
+            self.name = name
     def set_name(self):
         while True:
             name = input('Name of this month (as 3 letter abbreviation): ')

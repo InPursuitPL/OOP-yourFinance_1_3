@@ -1,6 +1,6 @@
 from nose.tools import *
 from yourFinance import month
-
+from yourFinance import stash
 
 def test_init():
     obj = month.Month('jan')
