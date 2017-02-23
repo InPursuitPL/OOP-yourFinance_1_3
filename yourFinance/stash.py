@@ -34,3 +34,5 @@ class Stash:
     def decrease_amount(self, amount):
         self.amount = round(float(self.amount - amount), 2)
 
+    def show_stash(self):
+        return '{}: {}'.format(self.name, self.amount)

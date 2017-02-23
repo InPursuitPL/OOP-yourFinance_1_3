@@ -1,6 +1,6 @@
 #! python3
 
-import stash
+from yourFinance import stash
 
 class Month:
     MONTHS_NAMES = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
@@ -15,6 +15,7 @@ class Month:
         else:
             assert name in Month.MONTHS_NAMES, 'Wrong month name delivered to <name> variable.'
             self.name = name
+            
     def set_name(self):
         while True:
             name = input('Name of this month (as 3 letter abbreviation): ')
@@ -58,3 +59,11 @@ class Month:
         #Subtracts amount from totalStash.amount as I want this one to be
         #automatically updated.
         self.totalStash.amount -= stashObj.amount
+
+    def show_month(self):
+        monthString = self.name + '\n' + self.totalStash.show_stash() + '\n'
+        for stash in self.stashList:
+            monthString += stash.show_stash() + '\n'
+        monthString += '\n'
+
+        return monthString
