@@ -18,7 +18,7 @@ class Month:
             
     def set_name(self):
         while True:
-            name = input('Name of this month (as 3 letter abbreviation): ')
+            name = input('Name of the month (as 3 letter abbreviation): ')
             if name[:3].lower() not in Month.MONTHS_NAMES:
                 print('It is not a proper name for month.')
                 continue

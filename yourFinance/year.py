@@ -16,7 +16,7 @@ class Year:
 
     def set_number(self):
         while True:
-            number = input('Number of this year: ')
+            number = input('Which year: ')
             try:
                 self.number = int(number)
                 break

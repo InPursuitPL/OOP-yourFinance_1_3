@@ -5,6 +5,9 @@ from yourFinance import year
 class User:
     def __init__(self, name='', password=''):
         self.yearDict = {}
+        #No (g/s)etter as stash name may be anything. It is Python so
+        #I will access it directly.
+        self.stashNames = []
         if name == '':
             self.set_name()
         else:

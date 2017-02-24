@@ -36,6 +36,6 @@ if __name__ == '__main__':
         print('Wrong username or password.')
         continue
 
-
+    menu.Menu(userObj)
 
 
