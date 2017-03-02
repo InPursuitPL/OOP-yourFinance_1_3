@@ -5,9 +5,19 @@ from yourFinance import year
 class User:
     def __init__(self, name='', password=''):
         self.yearDict = {}
-        #No (g/s)etter as stash name may be anything. It is Python so
-        #I will access it directly.
-        self.stashNames = []
+        #Hhere are some default values that can be changed by the program.
+        #No (g/s)etter as these name may be anything.I will access it
+        #directly.
+        self.stashNames = ['bank account', 'savings', 'wallet', 'others']
+        self.currentCosts = ['rent and other charges', 'transportation',
+                             'clothes', 'food',
+                             'hobby', 'others']
+        self.mothlyCosts = {
+                'existence amount': 1500,
+                    'minimal amount': 2000,
+                    'standard amount': 3000,
+                }
+
         if name == '':
             self.set_name()
         else:

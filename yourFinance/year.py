@@ -26,10 +26,14 @@ class Year:
 
     def add_month(self, monthObj):
         assert isinstance(monthObj,month.Month), 'Wrong argument type (should be Month object).'
-        #Function will replace data for the given key, that is already in dict.
+        if monthObj.name in self.monthDict:
+            answer = input('Month exists. Override? (y/n) ')
+            if answer.lower().startswith('n'):
+                return False
         #Values will be month names, as it will be easier to find certain month
         #object. 
         self.monthDict[monthObj.name] = monthObj
+
 
     def remove_month(self, monthObj):
         assert isinstance(monthObj,month.Month), 'Wrong argument type (should be Month object).'

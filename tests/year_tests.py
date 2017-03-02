@@ -30,17 +30,17 @@ def test_add_remove_month():
     assert_equal(obj.monthDict['jan'].name, 'jan')
     assert_equal(len(obj.monthDict['jan'].stashList), 0)
 
-    month2Obj = month.Month('jan')
+    month2Obj = month.Month('feb')
     stashObj = stash.Stash('wallet', 150)
     month2Obj.add_stash(stashObj)
     obj.add_month(month2Obj)
-    assert_equal(len(obj.monthDict), 1)
-    assert_equal(obj.monthDict['jan'].name, 'jan')
-    assert_equal(len(obj.monthDict['jan'].stashList), 1)
+    assert_equal(len(obj.monthDict), 2)
+    assert_equal(obj.monthDict['feb'].name, 'feb')
+    assert_equal(len(obj.monthDict['feb'].stashList), 1)
 
     obj.remove_month(month2Obj)
-    assert_equal(len(obj.monthDict), 0)
-    assert_raises(Exception, obj.remove_month, monthObj)
+    assert_equal(len(obj.monthDict), 1)
+    assert_raises(Exception, obj.remove_month, month2Obj)
     
 def test_show_year():
    obj = year.Year(2017)

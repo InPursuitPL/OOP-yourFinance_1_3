@@ -1,11 +1,12 @@
 #! python3
-#main.py - main file that starts yourFinance program. Here you can log
-#in or create new user that will be transferred to the next part of the
-#program.
-from yourFinance import menu, data, user, year, month, stash
+# main.py - main file that starts yourFinance program. Here you can log
+# in or create new user that will be transferred to the next part of the
+# program.
+from yourFinance import menu, data, user
+
 
 def return_user_obj_or_None(name, password, isNew):
-    '''Provides user object or None if user not found in database.'''
+    """Provides user object or None if user not found in database."""
     if isNew:
         newUserObj = user.User(name, password)
         data.Data().save_user(newUserObj)
@@ -14,7 +15,7 @@ def return_user_obj_or_None(name, password, isNew):
         try:
             return data.Data().load_user(name, password)
         except:
-            return None
+            return
 
 
 if __name__ == '__main__':

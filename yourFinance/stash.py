@@ -20,7 +20,7 @@ class Stash:
 
     def set_amount(self):
         while True:
-            amount = input('Amount stored in this money deposition place: ')
+            amount = input('Amount stored in {}: '.format(self.name))
             try:
                 self.amount = round(float(amount), 2)
                 break
