@@ -14,7 +14,7 @@ def return_user_obj_or_None(name, password, isNew):
     else:
         try:
             return data.Data().load_user(name, password)
-        except:
+        except Exception:
             return
 
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
             break
         print('Wrong username or password.')
         continue
-
+    # Starts main menu with given user object as attribute.
     menu.Menu(userObj)
 
 

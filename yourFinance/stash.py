@@ -1,4 +1,7 @@
 #! python3
+# stash.py - stores Stash class. Stash object is month's money deposition
+# place with given name and amount.
+
 
 class Stash:
     def __init__(self, name='', amount=''):
@@ -12,13 +15,16 @@ class Stash:
             try:
                 self.amount = round(float(amount), 2)
             except:
-                raise Exception('Wrong data type delivered to <amount> variable in "{}" Stash object.'.format(self.name))
+                raise Exception('Wrong data type delivered to <amount>\
+                 variable in "{}" Stash object.'.format(self.name))
 
     def set_name(self):
+        """Sets stash name if it was not given while being created."""
         name = input('Name of this money deposition place: ')
         self.name = name
 
     def set_amount(self):
+        """Sets stash amount if it was not given while being created."""
         while True:
             amount = input('Amount stored in {}: '.format(self.name))
             try:
@@ -29,10 +35,13 @@ class Stash:
                 continue
 
     def increase_amount(self, amount):
+        """Increases and rounds amount."""
         self.amount = round(float(self.amount + amount), 2)
 
     def decrease_amount(self, amount):
+        """Decreases and rounds amount."""
         self.amount = round(float(self.amount - amount), 2)
 
     def show_stash(self):
-        return '{}: {}'.format(self.name, self.amount)
+        """Returns string with stash name and amount."""
+        return '{}: {}'.format(self.name, round(self.amount, 2))
