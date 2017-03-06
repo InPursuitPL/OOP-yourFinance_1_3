@@ -23,7 +23,7 @@ class Year:
             try:
                 self.number = int(number)
                 break
-            except:
+            except ValueError:
                 print('It is not a proper number for year.')
                 continue
 
@@ -47,7 +47,7 @@ class Year:
         # Function will raise error if month obj with this name is not in dict
         try:
             del self.monthDict[monthObj.name]
-        except:
+        except KeyError:
             raise Exception('No object with this name in months dictionary.')
 
     def show_year(self):

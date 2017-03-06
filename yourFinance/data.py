@@ -9,7 +9,7 @@ from yourFinance import user
 
 logging.basicConfig(level=logging.DEBUG,
                     format=' %(asctime)s - %(levelname)s - %(message)s')
-#logging.disable(logging.CRITICAL)
+logging.disable(logging.CRITICAL)
 
 
 class Data:
@@ -36,12 +36,12 @@ class Data:
 
     def load_user(self, name, password):
         """Loads user object from shelve file."""
+        shelveFile = shelve.open(self.FILENAME)
         try:
-            shelveFile = shelve.open(self.FILENAME)
             userObj = shelveFile['users'][str(name) + str(password)]
             logging.debug('Data class: User loaded.')
             return userObj
-        except:
+        except KeyError:
             raise Exception('No such object in data file.')
         finally:
             shelveFile.close()

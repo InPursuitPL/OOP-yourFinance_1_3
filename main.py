@@ -19,9 +19,15 @@ def return_user_obj_or_None(name, password, isNew):
 
 
 if __name__ == '__main__':
-    print('Welcome in yourFinance program.\n')
+    print('''Welcome in yourFinance program.
+
+    This program helps you to manage your budget.
+    It saves budget data as separate money deposition places
+    for certain month and certain year. You can check detailed
+    data as well as analyze certain month to see the values
+    and other information.''')
     while True:
-        decision = input('Please choose "Sign in" or "New user": ')
+        decision = input('\nPlease choose "Sign in" or "New user": ')
         if decision.lower().startswith('sig'):
             isNew = False
         elif decision.lower().startswith('new'):

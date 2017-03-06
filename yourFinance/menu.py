@@ -8,13 +8,13 @@ from yourFinance import data, user, year, month, stash
 
 logging.basicConfig(level=logging.DEBUG,
                     format=' %(asctime)s - %(levelname)s - %(message)s')
-#logging.disable(logging.CRITICAL)
+logging.disable(logging.CRITICAL)
 
 
 class Menu:
     """Shows options of the program."""
     # Leave it as class attribute to let it be inherited.
-    display_menu = '''\nWelcome in yourFinance program. What would you like to do:
+    display_menu = '''\nWhat would you like to do:
     1. Add new data for the month.
     2. Check data for the whole time, year or month.
     3. Analyze data.
@@ -25,7 +25,7 @@ class Menu:
         self.userObj = userObj
         mainChoices = {
             "1": self.add_month,
-            "2": self.choose_time_to_display,
+            "2": self.display_time,
             "3": self.run_analyze_menu,
             "4": self.configure_settings,
             "5": self.exit,
@@ -71,44 +71,27 @@ class Menu:
         print(yearObj.monthDict[monthObj.name].show_month())
         input('\nHit enter to go back to menu.')
 
-    def choose_time_to_display(self):
-        """User can decide which part of data he wants to display."""
-        timeChoices = {
-            "1": self.display_month,
-            "2": self.display_year,
-            "3": self.display_all
-        }
-        display_time_menu = '''Which part of data you would like to see:
-        1. Certain month
-        2. Certain year
-        3. All data in database'''
-        self.run(display_time_menu, timeChoices)
-
-
-    def display_month(self):
-        """Displays month after user input."""
-        year = input('Which year is it for? ')
-        month = input('Which month is it for? ')
-        try:
-            print(self.userObj.yearDict[int(year)].monthDict[month].show_month())
-        except:
-            print('\nNo data in database for {} {}'.format(month, year))
-
-        input('\nHit enter to go back to menu.')
-
-    def display_year(self):
-        """Displays year after user input."""
-        year = input('Which year is it for? ')
-        try:
-            print(self.userObj.yearDict[int(year)].show_year())
-        except:
-            print('\nNo data in database for {}'.format(year))
-
-        input('\nHit enter to go back to menu.')
-
-    def display_all(self):
-        """Displays all time data for this user."""
-        print(self.userObj.show_funds())
+    def display_time(self):
+        """Displays user stashes data for certain time."""
+        year = input('Which year data you want to display? '
+                     'Or hit enter to display all data: ')
+        if year == '':
+            print(self.userObj.show_funds())
+        else:
+            month = input('Which month you want to display? '
+                          'Or hit enter to display whole year data: ')
+            if month == '':
+                try:
+                    print(self.userObj.yearDict[int(year)].show_year())
+                except KeyError:
+                    print('\nNo data in database for {}'.format(year))
+            else:
+                try:
+                    print(year, self.userObj.yearDict[int(year)].monthDict[month].show_month())
+                except KeyError:
+                    print('\nNo data in database for {}'.format(month))
+                except ValueError:
+                    print('\nNo data in database for {}'.format(year))
         input('\nHit enter to go back to menu.')
 
     def run_analyze_menu(self):
@@ -142,7 +125,16 @@ if __name__ == '__main__':
     try:
         userLoaded = data.Data().load_user(userObj.name, userObj.password)
         logging.debug('User succesfully loaded.')
-        Menu(userLoaded)
+        isLoaded = True
+    # Using general except as I want here the program to continue, regardless
+    # of what caused the error.
     except:
-        logging.debug('User not loaded. Using created user.')
+        logging.debug('User not loaded.')
+        isLoaded = False
+
+    if isLoaded:
+        Menu(userLoaded)
+    else:
+        logging.debug('Saving and using created user.')
+        data.Data().save_user(userObj)
         Menu(userObj)

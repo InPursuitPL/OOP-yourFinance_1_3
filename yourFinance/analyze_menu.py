@@ -15,6 +15,7 @@ class AnalyzeMenu(menu.Menu):
         display_analyze_menu = '''\nWhat would you like to do:
                 1. Analyze last month.
                 2. Analyze chosen month.'''
+        # Uses run function, inherited from Menu class.
         self.run(display_analyze_menu, analyzeChoices)
 
     def analyze_last_month(self):
@@ -27,10 +28,9 @@ class AnalyzeMenu(menu.Menu):
                 if monthName in yearObj.monthDict.keys():
                     monthObj = yearObj.monthDict[monthName]
                     break
-        except:
+        except IndexError:
             input('No such data in your database. Hit enter. ')
             return
-
         self.analyze_month(yearObj.number, monthObj, True)
 
     def analyze_chosen_month(self):
@@ -39,7 +39,7 @@ class AnalyzeMenu(menu.Menu):
         monthName = month.Month().name
         try:
             monthObj = self.userObj.yearDict[yearNumber].monthDict[monthName]
-        except:
+        except KeyError:
             input('No such data in database. Hit enter. ')
             return
         self.analyze_month(yearNumber, monthObj)
@@ -72,13 +72,14 @@ class AnalyzeMenu(menu.Menu):
                       prevYearNumber].monthDict[
                       prevMonthName]
             print(prevMonthObj.show_month())
-        except:
+        except KeyError:
             print('No data in database for {} {} \n'.format(
                 prevYearNumber,
                 prevMonthName))
             return
         # Checks the money difference between given and previous months.
-        gain = monthObj.totalStash.amount - prevMonthObj.totalStash.amount
+        gain = round(monthObj.totalStash.amount
+                     - prevMonthObj.totalStash.amount, 2)
         if gain >= 0:
             print('You have gained: \n {}'.format(gain))
         else:

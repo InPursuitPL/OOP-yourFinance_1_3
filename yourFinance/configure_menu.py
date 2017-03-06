@@ -18,6 +18,7 @@ class ConfigureMenu(menu.Menu):
                 1. Configure names of money deposition places.
                 2. Configure monthly costs names and amounts.
                 3. Configure current costs groups.'''
+        # Uses run function, inherited from Menu class.
         self.run(display_conf_menu, confChoices)
 
     def configure_stashes_names(self):
@@ -70,7 +71,7 @@ class ConfigureMenu(menu.Menu):
                 elementValue = input()
                 try:
                     elementValue = float(elementValue)
-                except:
+                except ValueError:
                     print('\nWrong data type, repeat element name and value')
                     continue
                 configData[elementName] = elementValue

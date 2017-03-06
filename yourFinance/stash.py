@@ -14,9 +14,11 @@ class Stash:
         else:
             try:
                 self.amount = round(float(amount), 2)
-            except:
-                raise Exception('Wrong data type delivered to <amount>\
-                 variable in "{}" Stash object.'.format(self.name))
+            except ValueError:
+                raise Exception(
+                    'Wrong data type delivered to <amount> '
+                    + 'variable in "{}" Stash object.'.format(self.name)
+                    )
 
     def set_name(self):
         """Sets stash name if it was not given while being created."""
@@ -30,7 +32,7 @@ class Stash:
             try:
                 self.amount = round(float(amount), 2)
                 break
-            except:
+            except ValueError:
                 print('Wrong type, please provide a number')
                 continue
 
