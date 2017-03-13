@@ -5,6 +5,9 @@ that this is just a simple program to learn OOP and this is the only reason why 
 My main goals, while working on it, were to design it as good as I can at this moment 
 (in terms of Object Oriented Design, not functionality) and to make it possibly user-error-proof.
 I created some (not advanced) unit tests and I would like to extend this topic in the future.
+
+I've used here Observer design pattern to save data as well as changelog file.
+
 All sugestions, advices and constructive criticism will be MUCH appreciated!
 
 Start it with main.py, program stores data as shelve files and uses nose for automated tests.
