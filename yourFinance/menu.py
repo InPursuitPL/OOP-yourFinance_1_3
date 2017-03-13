@@ -4,11 +4,22 @@
 import sys
 import logging
 
-from yourFinance import data, user, year, month, stash
+from yourFinance import changelog, data, user, year, month, stash
 
 logging.basicConfig(level=logging.DEBUG,
                     format=' %(asctime)s - %(levelname)s - %(message)s')
 logging.disable(logging.CRITICAL)
+
+# This is for Observer design pattern. I've created it outside Menu class
+# because in some places I want to use it before instantiating this class
+# (eg. in case this module is running as a script or in main.py) as this
+# would also trigger main menu running. Other way is to move __init__
+# functionality into different function.
+observersList = [data.Data().update, changelog.Changelog().update ]
+def notify_observers(userObj):
+    """Observer design pattern - notifies observers."""
+    for observer in observersList:
+        observer(userObj)
 
 
 class Menu:
@@ -21,6 +32,7 @@ class Menu:
     4. Configure settings.
     5. Exit.
     '''
+
     def __init__(self, userObj):
         self.userObj = userObj
         mainChoices = {
@@ -65,7 +77,7 @@ class Menu:
             yearObj.monthDict[monthObj.name].add_stash(stash.Stash(stashName))
 
         self.userObj.add_year(yearObj)
-        data.Data().save_user(self.userObj)
+        notify_observers(self.userObj)
 
         print('\nData for year {} saved:'.format(yearObj.number))
         print(yearObj.monthDict[monthObj.name].show_month())
@@ -136,5 +148,5 @@ if __name__ == '__main__':
         Menu(userLoaded)
     else:
         logging.debug('Saving and using created user.')
-        data.Data().save_user(userObj)
+        notify_observers(userObj)
         Menu(userObj)

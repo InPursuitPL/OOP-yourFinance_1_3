@@ -46,6 +46,10 @@ class Data:
         finally:
             shelveFile.close()
 
+    def update(self, userObj):
+        """Design pattern Observer. Updates data based on arguments."""
+        self.save_user(userObj)
+
     def _remove_user(self, name, password):
         """Removes user object from shelve file."""
         userObj = self.load_user(name, password)

@@ -2,7 +2,7 @@
 # configure_menu.py - stores ConfigureMenu class, which is subclass of
 # Menu class. It holds submenu for configuration some user values with
 # names for default money stashes and so on.
-from yourFinance import menu, data
+from yourFinance import menu
 
 
 class ConfigureMenu(menu.Menu):
@@ -29,7 +29,7 @@ class ConfigureMenu(menu.Menu):
     def configure_monthly_costs(self):
         """Redirects to combined function."""
         self.configure_list_or_dictionary('monthly costs',
-                                          self.userObj.mothlyCosts)
+                                          self.userObj.monthlyCosts)
 
     def configure_current_costs(self):
         """Redirects to combined function."""
@@ -89,5 +89,6 @@ class ConfigureMenu(menu.Menu):
             self.userObj.mothlyCosts = configData
         elif dataName == 'current costs':
             self.userObj.currentCosts = configData
-        data.Data().save_user(self.userObj)
+        # From superclass, Observer design pattern.
+        menu.notify_observers(self.userObj)
         input()

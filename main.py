@@ -9,7 +9,7 @@ def return_user_obj_or_None(name, password, isNew):
     """Provides user object or None if user not found in database."""
     if isNew:
         newUserObj = user.User(name, password)
-        data.Data().save_user(newUserObj)
+        menu.notify_observers(newUserObj)
         return newUserObj
     else:
         try:

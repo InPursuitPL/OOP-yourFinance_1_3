@@ -87,27 +87,31 @@ class AnalyzeMenu(menu.Menu):
 
     def check_monthly_costs(self, monthObj):
         """Checks for how long total sum of given month is enough."""
-        for key in self.userObj.mothlyCosts.keys():
+        for key in self.userObj.monthlyCosts.keys():
             monthsVol = monthObj.totalStash.amount\
-                        / self.userObj.mothlyCosts[key]
+                        / self.userObj.monthlyCosts[key]
             print('Your sum is enough for '
                   + str(round(monthsVol, 1))
                   + ' months, based on '
                   + key + ' of '
-                  + str(self.userObj.mothlyCosts[key])
+                  + str(self.userObj.monthlyCosts[key])
                   + ' for total amount of ' +
                   str(round(monthObj.totalStash.amount, 2)))
 
     def subtract_current_costs(self, monthObj):
         """Asks about current costs and provides the final sum."""
-        monthTotality = monthObj.totalStash.amount
+        monthTotality = round(monthObj.totalStash.amount, 2)
         costValueTotal = 0
         for cost in self.userObj.currentCosts:
             costValue = input('\nHow much you will spend this month on {}? '
                               .format(cost))
             if costValue == '':
                 return
-            monthTotality -= int(costValue)
-            costValueTotal += int(costValue)
+            try:
+                monthTotality -= round(float(costValue), 2)
+                costValueTotal += round(float(costValue), 2)
+            except ValueError:
+                print("\nInvalid input.")
+                break
         print('\nYour total current costs are {}.'.format(costValueTotal))
         print('At the end of the month you will have {}.'.format(monthTotality))

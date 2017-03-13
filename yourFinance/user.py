@@ -14,7 +14,7 @@ class User:
         self.currentCosts = ['rent and other charges', 'transportation',
                              'clothes', 'food',
                              'hobby', 'others']
-        self.mothlyCosts = {
+        self.monthlyCosts = {
                 'existence amount': 1500,
                     'minimal amount': 2000,
                     'standard amount': 3000,
