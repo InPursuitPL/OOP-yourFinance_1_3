@@ -11,3 +11,8 @@ I've used here Observer design pattern to save data as well as changelog file.
 All sugestions, advices and constructive criticism will be MUCH appreciated!
 
 Start it with main.py, program stores data as shelve files and uses nose for automated tests.
+
+TODO list:
+Clearer separation between application layers (data access layers seems to be quite ok but there
+are user input elements in some objects' functions and this would make them harder to transfer 
+into models in MVC pattern web app based on this program).
